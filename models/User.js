@@ -1,17 +1,17 @@
 const
-  moongoose = require('mongoose'),
+  mongoose = require('mongoose'),
   bcrypt = require('bcrypt-nodejs'),
-  
+
   userSchema = new mongoose.Schema({
     name: String,
     email: {type: String, required: true, lowercase: true, unique: true},
      password: {type: String, select: false}, // select: false to avoid selecting sensitive fields
-    posts: [{type: Schema.Types.ObjectId, ref: 'Post'}],
-    comments: [{type: Schema.Types.ObjectId, ref: 'Comment'}]
+    posts: [{type: mongoose.Schema.Types.ObjectId, ref: 'Post'}],
+    comments: [{type: mongoose.Schema.Types.ObjectId, ref: 'Comment'}]
   }, {
     timestamps: true
   });
-  
+
   // hash the PW and encrypt it
   userSchema.methods.generateHash = function(password){
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8))
@@ -36,5 +36,5 @@ const
     this.password = this.generateHash(this.password)
     next()
   });
-  
+
   module.exports = mongoose.model('User', userSchema)

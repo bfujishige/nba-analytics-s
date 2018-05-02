@@ -21,7 +21,7 @@ app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 
-// app.use('/api/lobbies', require('./routes/api/lobbies'));
+app.use('/api/users', require('./routes/api/users'));
 
 
 
